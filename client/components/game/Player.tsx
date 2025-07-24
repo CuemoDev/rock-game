@@ -29,8 +29,12 @@ export function Player() {
   });
 
   useEffect(() => {
-    api.velocity.subscribe((v) => (velocity.current = v));
-    api.position.subscribe((p) => (position.current = p));
+    if (api.velocity && typeof api.velocity.subscribe === 'function') {
+      api.velocity.subscribe((v) => (velocity.current = v));
+    }
+    if (api.position && typeof api.position.subscribe === 'function') {
+      api.position.subscribe((p) => (position.current = p));
+    }
   }, [api]);
 
   useEffect(() => {
