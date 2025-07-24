@@ -22,11 +22,12 @@ export function GameWorld() {
       >
         <Suspense fallback={null}>
           <Physics gravity={[0, -30, 0]}>
-            {/* Lighting */}
-            <ambientLight intensity={0.4} />
+            {/* Enhanced Lighting */}
+            <ambientLight intensity={0.3} color="#404080" />
             <directionalLight
               position={[10, 20, 5]}
-              intensity={1}
+              intensity={1.2}
+              color="#ffffff"
               castShadow
               shadow-mapSize-width={2048}
               shadow-mapSize-height={2048}
@@ -35,6 +36,12 @@ export function GameWorld() {
               shadow-camera-right={20}
               shadow-camera-top={20}
               shadow-camera-bottom={-20}
+            />
+            <pointLight position={[0, 10, 0]} intensity={0.5} color="#ffaa00" />
+            <hemisphereLight
+              skyColor="#87ceeb"
+              groundColor="#2d5016"
+              intensity={0.4}
             />
             
             {/* Environment */}
