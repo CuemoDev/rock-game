@@ -1,9 +1,13 @@
-import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import { Mesh } from 'three';
-import { useGame } from '@/hooks/use-game';
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
+import { Mesh } from "three";
+import { useGame } from "@/hooks/use-game";
 
-export function DamageEffect({ position }: { position: [number, number, number] }) {
+export function DamageEffect({
+  position,
+}: {
+  position: [number, number, number];
+}) {
   const meshRef = useRef<Mesh>(null);
   const startTime = useRef(Date.now());
 
@@ -11,7 +15,7 @@ export function DamageEffect({ position }: { position: [number, number, number] 
     if (meshRef.current) {
       const elapsed = Date.now() - startTime.current;
       const progress = elapsed / 1000; // 1 second duration
-      
+
       if (progress < 1) {
         meshRef.current.position.y = position[1] + progress * 2;
         meshRef.current.material.opacity = Math.max(0, 1 - progress);
@@ -30,7 +34,11 @@ export function DamageEffect({ position }: { position: [number, number, number] 
   );
 }
 
-export function HitEffect({ position }: { position: [number, number, number] }) {
+export function HitEffect({
+  position,
+}: {
+  position: [number, number, number];
+}) {
   const meshRef = useRef<Mesh>(null);
   const startTime = useRef(Date.now());
 
@@ -38,7 +46,7 @@ export function HitEffect({ position }: { position: [number, number, number] }) 
     if (meshRef.current) {
       const elapsed = Date.now() - startTime.current;
       const progress = elapsed / 500; // 0.5 second duration
-      
+
       if (progress < 1) {
         meshRef.current.material.opacity = Math.max(0, 1 - progress);
         meshRef.current.scale.setScalar(progress * 3);
@@ -62,8 +70,9 @@ export function HealthPulse() {
 
   useFrame((_, delta) => {
     if (meshRef.current && state.localPlayer) {
-      const healthPercent = state.localPlayer.health / state.localPlayer.maxHealth;
-      
+      const healthPercent =
+        state.localPlayer.health / state.localPlayer.maxHealth;
+
       if (healthPercent < 0.3) {
         // Pulse red when low health
         const pulse = Math.sin(Date.now() * 0.01) * 0.5 + 0.5;

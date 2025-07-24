@@ -20,7 +20,7 @@ export interface Rock {
 }
 
 export interface GameState {
-  gameMode: 'menu' | 'lobby' | 'playing' | 'paused';
+  gameMode: "menu" | "lobby" | "playing" | "paused";
   localPlayer: Player | null;
   otherPlayers: Player[];
   rocks: Rock[];
@@ -40,12 +40,21 @@ export interface GameStats {
   gamesPlayed: number;
 }
 
-export type GameAction = 
-  | { type: 'SET_GAME_MODE'; payload: GameState['gameMode'] }
-  | { type: 'SET_USERNAME'; payload: string }
-  | { type: 'UPDATE_PLAYER_POSITION'; payload: { position: [number, number, number]; rotation: [number, number, number] } }
-  | { type: 'SPAWN_ROCK'; payload: Omit<Rock, 'id' | 'createdAt'> }
-  | { type: 'UPDATE_ROCKS'; payload: Rock[] }
-  | { type: 'DAMAGE_PLAYER'; payload: { playerId: string; damage: number; attackerId: string } }
-  | { type: 'RESPAWN_PLAYER'; payload: string }
-  | { type: 'UPDATE_SETTINGS'; payload: Partial<GameState['gameSettings']> };
+export type GameAction =
+  | { type: "SET_GAME_MODE"; payload: GameState["gameMode"] }
+  | { type: "SET_USERNAME"; payload: string }
+  | {
+      type: "UPDATE_PLAYER_POSITION";
+      payload: {
+        position: [number, number, number];
+        rotation: [number, number, number];
+      };
+    }
+  | { type: "SPAWN_ROCK"; payload: Omit<Rock, "id" | "createdAt"> }
+  | { type: "UPDATE_ROCKS"; payload: Rock[] }
+  | {
+      type: "DAMAGE_PLAYER";
+      payload: { playerId: string; damage: number; attackerId: string };
+    }
+  | { type: "RESPAWN_PLAYER"; payload: string }
+  | { type: "UPDATE_SETTINGS"; payload: Partial<GameState["gameSettings"]> };

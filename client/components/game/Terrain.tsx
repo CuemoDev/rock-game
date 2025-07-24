@@ -1,12 +1,12 @@
-import { usePlane } from '@react-three/cannon';
-import { Plane } from '@react-three/drei';
-import * as THREE from 'three';
+import { usePlane } from "@react-three/cannon";
+import { Plane } from "@react-three/drei";
+import * as THREE from "three";
 
 export function Terrain() {
   const [ref] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, 0, 0],
-    type: 'Static'
+    type: "Static",
   }));
 
   return (
@@ -21,7 +21,7 @@ export function Terrain() {
           side={THREE.DoubleSide}
         />
       </mesh>
-      
+
       {/* Arena boundaries - walls with better materials */}
       <mesh position={[0, 5, -50]} receiveShadow castShadow>
         <boxGeometry args={[100, 10, 1]} />
@@ -42,7 +42,7 @@ export function Terrain() {
         <boxGeometry args={[1, 10, 100]} />
         <meshStandardMaterial color="#4a5568" roughness={0.9} metalness={0.1} />
       </mesh>
-      
+
       {/* Enhanced cover objects */}
       <mesh position={[10, 1.5, 10]} castShadow receiveShadow>
         <boxGeometry args={[3, 3, 3]} />

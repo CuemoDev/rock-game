@@ -1,22 +1,22 @@
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Sky, Plane } from '@react-three/drei';
-import { Suspense } from 'react';
-import { Vector3 } from 'three';
-import { Physics } from '@react-three/cannon';
-import { Player } from './game/Player';
-import { Terrain } from './game/Terrain';
-import { GameUI } from './game/GameUI';
-import { RockSystem } from './game/RockSystem';
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment, Sky, Plane } from "@react-three/drei";
+import { Suspense } from "react";
+import { Vector3 } from "three";
+import { Physics } from "@react-three/cannon";
+import { Player } from "./game/Player";
+import { Terrain } from "./game/Terrain";
+import { GameUI } from "./game/GameUI";
+import { RockSystem } from "./game/RockSystem";
 
 export function GameWorld() {
   return (
     <div className="w-full h-screen relative">
       <Canvas
-        camera={{ 
-          position: [0, 5, 10], 
+        camera={{
+          position: [0, 5, 10],
           fov: 75,
           near: 0.1,
-          far: 1000 
+          far: 1000,
         }}
         shadows
       >
@@ -43,20 +43,20 @@ export function GameWorld() {
               groundColor="#2d5016"
               intensity={0.4}
             />
-            
+
             {/* Environment */}
-            <Sky 
+            <Sky
               distance={450000}
               sunPosition={[0, 1, 0]}
               inclination={0}
               azimuth={0.25}
             />
-            
+
             {/* Game Elements */}
             <Terrain />
             <Player />
             <RockSystem />
-            
+
             {/* Controls - will be replaced by custom player controls */}
             <OrbitControls
               enablePan={false}
@@ -67,7 +67,7 @@ export function GameWorld() {
           </Physics>
         </Suspense>
       </Canvas>
-      
+
       {/* UI Overlay */}
       <GameUI />
     </div>

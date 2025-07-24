@@ -1,10 +1,10 @@
-import { useGame } from '@/hooks/use-game';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { Heart, Skull, Target, Menu, Home } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useGame } from "@/hooks/use-game";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { Heart, Skull, Target, Menu, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function GameUI() {
   const { state, actions } = useGame();
@@ -19,13 +19,13 @@ export function GameUI() {
         const elapsed = Date.now() - startTime;
         const remaining = Math.max(0, state.gameSettings.respawnTime - elapsed);
         setRespawnTimer(Math.ceil(remaining / 1000));
-        
+
         if (remaining <= 0) {
           clearInterval(interval);
           setRespawnTimer(0);
         }
       }, 100);
-      
+
       return () => clearInterval(interval);
     }
   }, [state.localPlayer?.isAlive, state.gameSettings.respawnTime]);
@@ -33,13 +33,13 @@ export function GameUI() {
   // Handle ESC key for menu
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Escape') {
+      if (event.code === "Escape") {
         setShowMenu(!showMenu);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [showMenu]);
 
   if (!state.localPlayer) return null;
@@ -55,8 +55,10 @@ export function GameUI() {
               <Heart className="h-4 w-4 text-red-500" />
               <span className="text-white text-sm font-semibold">Health</span>
             </div>
-            <Progress 
-              value={(state.localPlayer.health / state.localPlayer.maxHealth) * 100} 
+            <Progress
+              value={
+                (state.localPlayer.health / state.localPlayer.maxHealth) * 100
+              }
               className="w-48 h-2"
             />
             <div className="text-white text-xs mt-1">
@@ -70,7 +72,9 @@ export function GameUI() {
           <CardContent className="p-3">
             <div className="flex items-center gap-2">
               <Target className="h-4 w-4 text-yellow-500" />
-              <span className="text-white text-sm font-semibold">Kill Streak</span>
+              <span className="text-white text-sm font-semibold">
+                Kill Streak
+              </span>
               <Badge variant="secondary" className="bg-yellow-600 text-white">
                 {state.localPlayer.killStreak}
               </Badge>
@@ -84,7 +88,7 @@ export function GameUI() {
             <div className="text-white text-sm">
               <div className="font-semibold">{state.localPlayer.username}</div>
               <div className="text-gray-300 text-xs">
-                Status: {state.localPlayer.isAlive ? 'Alive' : 'Dead'}
+                Status: {state.localPlayer.isAlive ? "Alive" : "Dead"}
               </div>
             </div>
           </CardContent>
@@ -96,11 +100,21 @@ export function GameUI() {
         <Card className="bg-black/50 border-gray-600">
           <CardContent className="p-3">
             <div className="text-white text-xs space-y-1">
-              <div><span className="font-semibold">WASD:</span> Move</div>
-              <div><span className="font-semibold">Mouse:</span> Look around</div>
-              <div><span className="font-semibold">Left Click:</span> Throw rock</div>
-              <div><span className="font-semibold">Space:</span> Jump</div>
-              <div><span className="font-semibold">ESC:</span> Menu</div>
+              <div>
+                <span className="font-semibold">WASD:</span> Move
+              </div>
+              <div>
+                <span className="font-semibold">Mouse:</span> Look around
+              </div>
+              <div>
+                <span className="font-semibold">Left Click:</span> Throw rock
+              </div>
+              <div>
+                <span className="font-semibold">Space:</span> Jump
+              </div>
+              <div>
+                <span className="font-semibold">ESC:</span> Menu
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -148,7 +162,7 @@ export function GameUI() {
           <Card className="w-full max-w-md">
             <CardContent className="p-8 space-y-4">
               <h2 className="text-2xl font-bold text-center">Game Menu</h2>
-              
+
               <div className="space-y-2">
                 <Button
                   onClick={() => setShowMenu(false)}
@@ -157,10 +171,10 @@ export function GameUI() {
                 >
                   Resume Game
                 </Button>
-                
+
                 <Button
                   onClick={() => {
-                    actions.setGameMode('menu');
+                    actions.setGameMode("menu");
                     setShowMenu(false);
                   }}
                   variant="outline"
@@ -170,12 +184,17 @@ export function GameUI() {
                   Return to Menu
                 </Button>
               </div>
-              
+
               <div className="pt-4 border-t">
                 <div className="text-sm text-gray-500 space-y-1">
-                  <div>Health: {state.localPlayer.health}/{state.localPlayer.maxHealth}</div>
+                  <div>
+                    Health: {state.localPlayer.health}/
+                    {state.localPlayer.maxHealth}
+                  </div>
                   <div>Kill Streak: {state.localPlayer.killStreak}</div>
-                  <div>Status: {state.localPlayer.isAlive ? 'Alive' : 'Dead'}</div>
+                  <div>
+                    Status: {state.localPlayer.isAlive ? "Alive" : "Dead"}
+                  </div>
                 </div>
               </div>
             </CardContent>

@@ -7,11 +7,11 @@ import NotFound from "@/pages/NotFound";
 function GameRouter() {
   const { state } = useGame();
 
-  if (state.gameMode === 'menu') {
+  if (state.gameMode === "menu") {
     return <MainMenu />;
   }
 
-  if (state.gameMode === 'playing' || state.gameMode === 'paused') {
+  if (state.gameMode === "playing" || state.gameMode === "paused") {
     return <GameWorld />;
   }
 
