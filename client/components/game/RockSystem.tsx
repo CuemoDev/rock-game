@@ -25,19 +25,14 @@ function Rock({
     api.position.subscribe((p) => (position.current = p));
   }, [api, rock.velocity]);
 
-  useEffect(() => {
-    if (api.collisions && typeof api.collisions.subscribe === 'function') {
-      const unsubscribe = api.collisions.subscribe((e) => {
-        if (e.contact) {
-          onCollision(rock.id, position.current);
-        }
-      });
-      return unsubscribe;
-    }
-  }, [api, rock.id, onCollision]);
-
-  // Remove rock if it falls too low or goes too far
+  // Use frameloop for collision detection instead of collision subscription
   useFrame(() => {
+    // Check for collision with ground or boundaries
+    if (position.current[1] < 0.5) {
+      onCollision(rock.id, position.current);
+    }
+
+    // Remove rock if it falls too low or goes too far
     if (
       position.current[1] < -10 ||
       Math.abs(position.current[0]) > 60 ||
