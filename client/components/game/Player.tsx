@@ -201,9 +201,26 @@ export function Player() {
   }
 
   return (
-    <mesh ref={ref} castShadow>
-      <capsuleGeometry args={[0.5, 1.5]} />
-      <meshLambertMaterial color="#4f46e5" />
-    </mesh>
+    <group>
+      {/* Player body */}
+      <mesh ref={ref} castShadow>
+        <capsuleGeometry args={[0.5, 1.5]} />
+        <meshStandardMaterial
+          color="#4f46e5"
+          roughness={0.3}
+          metalness={0.1}
+          emissive="#1e1b4b"
+          emissiveIntensity={0.1}
+        />
+      </mesh>
+
+      {/* Player name tag */}
+      {state.localPlayer && (
+        <mesh position={[0, 3, 0]}>
+          <planeGeometry args={[2, 0.5]} />
+          <meshBasicMaterial color="#000000" transparent opacity={0.6} />
+        </mesh>
+      )}
+    </group>
   );
 }
