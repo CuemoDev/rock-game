@@ -29,10 +29,10 @@ export function Player() {
   });
 
   useEffect(() => {
-    if (api.velocity && typeof api.velocity.subscribe === 'function') {
+    if (api.velocity && typeof api.velocity.subscribe === "function") {
       api.velocity.subscribe((v) => (velocity.current = v));
     }
-    if (api.position && typeof api.position.subscribe === 'function') {
+    if (api.position && typeof api.position.subscribe === "function") {
       api.position.subscribe((p) => (position.current = p));
     }
   }, [api]);
