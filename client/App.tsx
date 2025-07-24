@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainMenu } from "@/components/MainMenu";
 import { GameWorld } from "@/components/GameWorld";
 import { GameProvider, useGame } from "@/hooks/use-game";
-import { NotFound } from "@/pages/NotFound";
+import NotFound from "@/pages/NotFound";
 
 function GameRouter() {
   const { state } = useGame();
