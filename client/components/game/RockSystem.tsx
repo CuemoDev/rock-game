@@ -38,10 +38,22 @@ function Rock({ rock, onCollision }: { rock: any, onCollision: (rockId: string, 
   });
 
   return (
-    <mesh ref={ref} castShadow>
-      <sphereGeometry args={[0.2]} />
-      <meshLambertMaterial color="#555555" />
-    </mesh>
+    <group>
+      <mesh ref={ref} castShadow>
+        <sphereGeometry args={[0.2]} />
+        <meshStandardMaterial
+          color="#2a2a2a"
+          roughness={0.9}
+          metalness={0.1}
+        />
+      </mesh>
+
+      {/* Trail effect */}
+      <mesh position={[0, 0, 0.2]}>
+        <sphereGeometry args={[0.05]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.3} />
+      </mesh>
+    </group>
   );
 }
 
