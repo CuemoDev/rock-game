@@ -1,30 +1,34 @@
-import "./global.css";
-
-import { Toaster } from "@/components/ui/toaster";
-import { createRoot } from "react-dom/client";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import { MainMenu } from "@/components/MainMenu";
+import { GameWorld } from "@/components/GameWorld";
+import { GameProvider, useGame } from "@/hooks/use-game";
+import { NotFound } from "@/pages/NotFound";
 
-const queryClient = new QueryClient();
+function GameRouter() {
+  const { state } = useGame();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
+  if (state.gameMode === 'menu') {
+    return <MainMenu />;
+  }
+
+  if (state.gameMode === 'playing' || state.gameMode === 'paused') {
+    return <GameWorld />;
+  }
+
+  return <MainMenu />;
+}
+
+function App() {
+  return (
+    <GameProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/" element={<GameRouter />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </GameProvider>
+  );
+}
 
-createRoot(document.getElementById("root")!).render(<App />);
+export default App;
