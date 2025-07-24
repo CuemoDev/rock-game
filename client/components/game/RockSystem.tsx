@@ -26,12 +26,14 @@ function Rock({
   }, [api, rock.velocity]);
 
   useEffect(() => {
-    const unsubscribe = api.collisions.subscribe((e) => {
-      if (e.contact) {
-        onCollision(rock.id, position.current);
-      }
-    });
-    return unsubscribe;
+    if (api.collisions && typeof api.collisions.subscribe === 'function') {
+      const unsubscribe = api.collisions.subscribe((e) => {
+        if (e.contact) {
+          onCollision(rock.id, position.current);
+        }
+      });
+      return unsubscribe;
+    }
   }, [api, rock.id, onCollision]);
 
   // Remove rock if it falls too low or goes too far
