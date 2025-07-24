@@ -102,5 +102,17 @@
 
   body {
     @apply bg-background text-foreground;
+    overflow: hidden; /* Prevent scrolling in game */
+    user-select: none; /* Prevent text selection */
+  }
+
+  /* Game-specific cursor styles */
+  canvas {
+    cursor: crosshair;
+  }
+
+  /* Disable context menu on right click in game */
+  canvas:focus {
+    outline: none;
   }
 }
